@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagination App</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#f4f6fb;
+color:#333;
+transition:0.4s;
+}
+
+body.dark{
+background:#121212;
+color:white;
+}
+
+/* NAVBAR */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 50px;
+background:#1f4fbf;
+color:white;
+position:sticky;
+top:0;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+}
+
+nav ul li{
+margin-left:25px;
+}
+
+nav a{
+text-decoration:none;
+color:white;
+font-weight:bold;
+}
+
+/* MOON BUTTON */
+
+.dark-toggle{
+font-size:20px;
+background:white;
+border:none;
+border-radius:50%;
+width:40px;
+height:40px;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:0.3s;
+}
+
+.dark-toggle:hover{
+transform:rotate(20deg) scale(1.1);
+}
+
+body.dark .dark-toggle{
+background:#333;
+color:#ffd700;
+}
+
+/* HERO */
+
+.hero{
+text-align:center;
+padding:100px 20px;
+background:linear-gradient(120deg,#1f4fbf,#3f8efc);
+color:white;
+animation:fadeIn 1s ease;
+}
+
+.hero h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+.hero button{
+margin-top:20px;
+padding:12px 25px;
+background:#27ae60;
+border:none;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* SECTIONS */
+
+section{
+padding:70px 80px;
+}
+
+section h2{
+text-align:center;
+margin-bottom:40px;
+}
+
+/* FEATURES */
+
+.features{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:20px;
+}
+
+.card{
+background:white;
+padding:25px;
+width:200px;
+text-align:center;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+body.dark .card{
+background:#1e1e1e;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+/* STUDENT CARDS */
+
+.scroll-container{
+display:flex;
+overflow-x:auto;
+gap:20px;
+padding:20px;
+scroll-behavior:smooth;
+}
+
+.student-card{
+min-width:220px;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+body.dark .student-card{
+background:#1e1e1e;
+}
+
+/* PAGINATION */
+
+.pagination{
+text-align:center;
+margin-top:20px;
+}
+
+.pagination button{
+padding:8px 15px;
+margin:5px;
+border:none;
+background:#1f4fbf;
+color:white;
+border-radius:5px;
+cursor:pointer;
+}
+
+.pagination button:hover{
+background:#0e36a8;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+footer{
+background:#1f2d3d;
+color:white;
+text-align:center;
+padding:30px;
+margin-top:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+<h2>Pagination App</h2>
+
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#demo">Demo</a></li>
+</ul>
+
+<button class="dark-toggle" onclick="toggleDark()">🌙</button>
+
+</nav>
+
+<!-- HERO -->
+
+<div class="hero" id="home">
+
+<h1>Smart Pagination System</h1>
+
+<p>Navigate large datasets efficiently using modern pagination techniques.</p>
+
+<button onclick="scrollToDemo()">View Demo</button>
+
+</div>
+
+<!-- FEATURES -->
+
+<section id="features">
+
+<h2>Key Features</h2>
+
+<div class="features">
+
+<div class="card">Page Navigation</div>
+<div class="card">Next / Previous</div>
+<div class="card">Side Scroll Cards</div>
+<div class="card">Fast Loading</div>
+<div class="card">Modern UI</div>
+
+</div>
+
+</section>
+
+<!-- PAGINATION DEMO -->
+
+<section id="demo">
+
+<h2>Student Dataset Pagination</h2>
+
+<div class="scroll-container" id="dataContainer"></div>
+
+<div class="pagination">
+
+<button onclick="prevPage()">Previous</button>
+
+<span id="pageNumbers"></span>
+
+<button onclick="nextPage()">Next</button>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>Built using HTML • CSS • JavaScript</p>
+
+</footer>
+
+<script>
+
+/* DARK MODE */
+
+function toggleDark(){
+
+document.body.classList.toggle("dark");
+
+const btn=document.querySelector(".dark-toggle");
+
+if(document.body.classList.contains("dark")){
+btn.innerHTML="☀";
+}else{
+btn.innerHTML="🌙";
+}
+
+}
+
+/* SCROLL */
+
+function scrollToDemo(){
+document.getElementById("demo").scrollIntoView({behavior:"smooth"});
+}
+
+/* DATASET */
+
+const students=[
+{id:1,name:"Aarav Sharma",course:"Computer Science"},
+{id:2,name:"Diya Patel",course:"Information Technology"},
+{id:3,name:"Rohan Verma",course:"Data Science"},
+{id:4,name:"Sneha Reddy",course:"Artificial Intelligence"},
+{id:5,name:"Aditya Kumar",course:"Cyber Security"},
+{id:6,name:"Meera Nair",course:"Software Engineering"},
+{id:7,name:"Arjun Singh",course:"Machine Learning"},
+{id:8,name:"Pooja Gupta",course:"Data Analytics"},
+{id:9,name:"Rahul Das",course:"Information Systems"},
+{id:10,name:"Neha Kapoor",course:"Cloud Computing"}
+];
+
+let currentPage=1;
+const perPage=4;
+
+function displayData(){
+
+const start=(currentPage-1)*perPage;
+const end=start+perPage;
+
+const container=document.getElementById("dataContainer");
+
+container.innerHTML="";
+
+students.slice(start,end).forEach(student=>{
+
+container.innerHTML+=`
+<div class="student-card">
+<h3>${student.name}</h3>
+<p>ID: ${student.id}</p>
+<p>Course: ${student.course}</p>
+</div>
+`;
+
+});
+
+displayPagination();
+
+}
+
+function displayPagination(){
+
+const totalPages=Math.ceil(students.length/perPage);
+
+const numbers=document.getElementById("pageNumbers");
+
+numbers.innerHTML="";
+
+for(let i=1;i<=totalPages;i++){
+
+numbers.innerHTML+=`<button onclick="goPage(${i})">${i}</button>`;
+
+}
+
+}
+
+function goPage(page){
+currentPage=page;
+displayData();
+}
+
+function nextPage(){
+
+const totalPages=Math.ceil(students.length/perPage);
+
+if(currentPage<totalPages){
+currentPage++;
+displayData();
+}
+
+}
+
+function prevPage(){
+
+if(currentPage>1){
+currentPage--;
+displayData();
+}
+
+}
+
+displayData();
+
+</script>
+
+</body>
+</html>
